@@ -5,20 +5,6 @@ const finalizar = document.getElementById('finalizar')
 let segundos = 0
 let contador
 
-iniciar.addEventListener('click', e => {
-  clearInterval(contador)
-  fnContador()
-})
-
-pausar.addEventListener('click', e => {
-  clearInterval(contador)
-})
-
-finalizar.addEventListener('click', e => {
-  clearInterval(contador)
-  segundos = 0
-})
-
 const fnVisor = segundos => {
   const tempo = new Date(segundos * 1000)
   return tempo.toLocaleTimeString('pt-BR', {
@@ -33,3 +19,24 @@ const fnContador = () => {
     cronometro.innerHTML = fnVisor(segundos)
   }, 1000)
 }
+
+iniciar.addEventListener('click', e => {
+  clearInterval(contador)
+  fnContador()
+})
+
+pausar.addEventListener('click', e => {
+  if (pausar.classList.contains('pausado')) {
+    pausar.classList.remove('pausado')
+    clearInterval(contador)
+    fnContador()
+  } else {
+    clearInterval(contador)
+    pausar.classList.add('pausado')
+  }
+})
+
+finalizar.addEventListener('click', e => {
+  clearInterval(contador)
+  segundos = 0
+})
