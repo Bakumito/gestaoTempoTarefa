@@ -29,6 +29,9 @@ const fnContador = () => {
 iniciar.addEventListener('click', e => {
   clearInterval(contador)
   fnContador()
+  inputNome.setAttribute('disabled', '')
+  inputAtividade.setAttribute('disabled', '')
+  inputTipoAtividade.setAttribute('disabled', '')
 })
 
 pausar.addEventListener('click', e => {
@@ -64,45 +67,29 @@ class Linha {
     this.atividade = atividade
     this.tipoAtividade = tipoAtividade
     this.tempo = tempo
-    this.editar = 'editar'
-    this.excluir = 'excluir'
   }
 }
 
 const fnLinhas = (nome, atividade, tipoAtividade, tempo) => {
   linhas.push(new Linha(nome, atividade, tipoAtividade, tempo))
-  console.log(linhas)
 }
 
 function fnAddLinha() {
-  const novaLinha = tbody.insertRow(-1)
-  const novoNome = novaLinha.insertCell(0)
-  const novaAtividade = novaLinha.insertCell(1)
-  const novoTipoAtividade = novaLinha.insertCell(2)
-  const novoTempo = novaLinha.insertCell(3)
-  const novoEditar = novaLinha.insertCell(4)
-  const novoExcluir = novaLinha.insertCell(5)
-  const textoNome = document.createTextNode(linhas[linhas.length - 1].nome)
-  const textoAtividade = document.createTextNode(
-    linhas[linhas.length - 1].atividade
-  )
-  const textoTipoAtividade = document.createTextNode(
-    linhas[linhas.length - 1].tipoAtividade
-  )
-  const textoTempo = document.createTextNode(linhas[linhas.length - 1].tempo)
-  const textoEditar = document.createTextNode(linhas[linhas.length - 1].editar)
-  const textoExcluir = document.createTextNode(
-    linhas[linhas.length - 1].excluir
-  )
-  novoNome.appendChild(textoNome)
-  novaAtividade.appendChild(textoAtividade)
-  novoTipoAtividade.appendChild(textoTipoAtividade)
-  novoTempo.appendChild(textoTempo)
-  novoEditar.appendChild(textoEditar)
-  novoExcluir.appendChild(textoExcluir)
+  const tr = tbody.insertRow(-1)
+  let i = linhas.length - 1
+
+  const tdNome = document.createTextNode(linhas[i].nome)
+  const tdAtividade = document.createTextNode(linhas[i].atividade)
+  const tdTipoAtividade = document.createTextNode(linhas[i].tipoAtividade)
+  const tdTempo = document.createTextNode(linhas[i].tempo)
+
+  tr.insertCell(0).appendChild(tdNome)
+  tr.insertCell(1).appendChild(tdAtividade)
+  tr.insertCell(2).appendChild(tdTipoAtividade)
+  tr.insertCell(3).appendChild(tdTempo)
 }
 
-btnTeste.addEventListener('click', e => {
+finalizar.addEventListener('click', e => {
   fnLinhas(
     inputer().nome,
     inputer().atividade,
@@ -111,6 +98,15 @@ btnTeste.addEventListener('click', e => {
   )
 
   fnAddLinha()
+  cronometro.innerHTML = '00:00:00'
+
+  inputNome.removeAttribute('disabled', '')
+  inputAtividade.removeAttribute('disabled', '')
+  inputTipoAtividade.removeAttribute('disabled', '')
+
+  inputNome.value = ''
+  inputAtividade.value = ''
+  inputTipoAtividade.value = ''
 })
 
 btnTeste2.addEventListener('click', e => {})
