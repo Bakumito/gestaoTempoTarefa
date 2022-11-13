@@ -16,7 +16,7 @@
     </header>
     <main>
       <section id="visor">
-        <div id="esquerda">
+        <div id="inputs">
           <div>
             <label for="procurar"></label>
             <input
@@ -34,15 +34,20 @@
             />
           </div>
           <div id="form">
-            <div>
+            <div class="inputers">
               <label for="nome">USUARIO</label>
-              <input id="inputNome" type="text" name="nome" />
+              <input id="inputNome" type="text" name="nome" required />
             </div>
-            <div>
+            <div class="inputers">
               <label for="atividade">ATIVIDADE</label>
-              <input id="inputAtividade" type="text" name="atividade" />
+              <input
+                id="inputAtividade"
+                type="text"
+                name="atividade"
+                required
+              />
             </div>
-            <div>
+            <div class="inputers">
               <label for="tipoAtividade">TIPO DE ATIVIDADE</label>
               <input id="inputTipoAtividade" type="text" name="tipoAtividade" />
             </div>
@@ -53,7 +58,7 @@
           <div id="containerBotoes">
             <div id="iniciar" class="botoes">
               <p>iniciar</p>
-              <button class="botao"></button>
+              <button id="inicia" class="botao"></button>
             </div>
             <div id="pausar" class="botoes">
               <p>pausar</p>
@@ -66,11 +71,22 @@
           </div>
         </div>
       </section>
-      <section id="tabela">
-        <table>
-          <thead></thead>
-          <tbody id="tabelaCorpo"></tbody>
-        </table>
+      <section id="sectionTabela">
+        <div id="divTabela">
+          <table id="tabela">
+            <thead>
+              <tr id="cabecalho">
+                <th onclick="fnOrdenaTabela(0)">USUARIO</th>
+                <th onclick="fnOrdenaTabela(1)">ATIVIDADE</th>
+                <th onclick="fnOrdenaTabela(2)">TIPO DE ATIVIDADE</th>
+                <th onclick="fnOrdenaTabela(3)">TEMPO</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tabelaCorpo"></tbody>
+          </table>
+        </div>
       </section>
       <section>
         <button id="botaoTeste">teste1</button>

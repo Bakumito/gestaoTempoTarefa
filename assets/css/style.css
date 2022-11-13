@@ -26,10 +26,14 @@ main {
 }
 
 #visor {
+  width: 100%;
   display: flex;
   background-color: #FFFDFD;
   border-bottom: 1.5rem solid #CBCBCB;
   justify-content: space-between;
+}
+
+#visor label {
   font-style: normal;
   font-weight: 500;
   font-size: 2.4rem;
@@ -47,6 +51,7 @@ img {
   font-weight: 400;
   font-size: 6rem;
   line-height: 7.3rem;
+  text-align: center;
 }
 
 #tabela {
@@ -55,7 +60,7 @@ img {
 
 #containerBotoes {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 #iniciar button {
@@ -85,10 +90,106 @@ img {
 }
 
 #relogio {
-  margin-right: 4.9rem;
+  width: 20%;
+  height: 11rem;
+  margin: 5.2rem 4.9rem 3.8rem 7.1rem;
 }
 
 .botoes:hover {
   color: #000;
   transition: ease;
+}
+
+#inputs {
+  width: 80%;
+  margin: 2.5rem 0 2.9rem 3.9rem;
+}
+
+#procurar {
+  width: 37.1rem;
+  height: 4.9rem;
+  padding: 1.3rem 2.1rem;
+  
+  font-style: normal;
+  font-weight: 300;
+  font-size: 2.3rem;
+  line-height: 2.7rem;
+}
+
+#filtrar {
+  width: 18.6rem;
+  height: 4.9rem;
+  margin-left: 3.9rem;
+  padding: 1.3rem 2.1rem;
+  
+  font-style: normal;
+  font-weight: 300;
+  font-size: 2.3rem;
+  line-height: 2.7rem;
+}
+
+#form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputers {
+  margin-top: 3.9rem;
+}
+
+.inputers input {
+  height: 2.7rem;
+}
+
+#divTabela{
+  background-color: #FDFDFD;
+  padding: 3.9rem;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  height: 6.7rem;
+}
+
+thead th {
+  width: 25%;
+}
+
+td:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+td:last-child {
+  border-bottom-right-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+thead th:nth-child(4){
+  width: 15%;
+}
+
+thead th:nth-child(5){
+  width: 5%;
+}
+
+thead th:nth-child(6){
+  width: 5%;
+}
+
+td {
+  text-align: center;
+}
+
+tr:nth-child(odd) {
+  background-color: #D9D9D9;
+}
+
+thead tr:first-child {
+  background-color: #FDFDFD;
 }
