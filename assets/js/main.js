@@ -9,10 +9,13 @@ const inputTipoAtividade = document.getElementById('inputTipoAtividade')
 const tabela = document.getElementById('tabela')
 const tbody = document.getElementById('tabelaCorpo')
 const procurar = document.getElementById('procurar')
-const btnTeste = document.getElementById('botaoTeste')
-const btnTeste2 = document.getElementById('botaoTeste2')
+const filtrar = document.getElementById('filtrar')
+const secaoTabela = document.getElementById('secaoTabela')
+const limparFiltro = document.getElementById('limparFiltro')
+const iconeProcurar = document.getElementById('iconeProcurar')
+
 let segundos = 0
-let contador
+let contadorSegundos
 
 const fnVisor = segundos => {
   const tempo = new Date(segundos * 1000)
@@ -23,102 +26,51 @@ const fnVisor = segundos => {
 }
 
 const fnContador = () => {
-  contador = setInterval(() => {
+  contadorSegundos = setInterval(() => {
     segundos++
     cronometro.innerHTML = fnVisor(segundos)
-  }, 1000)
+  }, 10)
 }
 
 iniciar.addEventListener('click', e => {
-  if (inputNome.value != '' && inputAtividade.value != '') {
-    clearInterval(contador)
+  if (inputNome.value == '' && inputAtividade.value == '') {
+    alert('Preencha os campos necessários')
+  } else {
+    clearInterval(contadorSegundos)
     fnContador()
     inputNome.setAttribute('disabled', '')
     inputAtividade.setAttribute('disabled', '')
     inputTipoAtividade.setAttribute('disabled', '')
 
     inicia.setAttribute('disabled', '')
-  } else {
-    alert('Preencha os campos necessários')
   }
 })
 
 pausar.addEventListener('click', e => {
-  if (pausar.classList.contains('pausado')) {
-    pausar.classList.remove('pausado')
-    clearInterval(contador)
-    fnContador()
+  if (inputNome.value == '' && inputAtividade.value == '') {
+    alert('Preencha os campos necessários')
   } else {
-    clearInterval(contador)
-    pausar.classList.add('pausado')
+    if (pausar.classList.contains('pausado')) {
+      pausar.classList.remove('pausado')
+      clearInterval(contadorSegundos)
+      fnContador()
+      pausar.firstElementChild.innerText = 'pausar'
+    } else {
+      clearInterval(contadorSegundos)
+      pausar.classList.add('pausado')
+      pausar.firstElementChild.innerText = 'retomar'
+    }
   }
 })
 
-finalizar.addEventListener('click', e => {
-  clearInterval(contador)
-  segundos = 0
-  inicia.removeAttribute('disabled', '')
-})
-
-let linhas = []
-
-const inputer = () => {
-  return {
-    nome: inputNome.value.toUpperCase().trim(),
-    atividade: inputAtividade.value.toUpperCase().trim(),
-    tipoAtividade: inputTipoAtividade.value.toUpperCase().trim(),
-    tempo: cronometro.innerText,
-    deletar: 'deletar',
-    editar: 'editar'
-  }
-}
-
-class Linha {
-  constructor(nome, atividade, tipoAtividade, tempo, deletar, editar) {
-    this.nome = nome
-    this.atividade = atividade
-    this.tipoAtividade = tipoAtividade
-    this.tempo = tempo
-    this.deletar = deletar
-    this.editar = editar
-  }
-}
-
-const fnLinhas = (nome, atividade, tipoAtividade, tempo, deletar, editar) => {
-  linhas.push(new Linha(nome, atividade, tipoAtividade, tempo, deletar, editar))
-}
-
-function fnAddLinha() {
-  const tr = tbody.insertRow(-1)
-  let i = linhas.length - 1
-
-  const tdNome = document.createTextNode(linhas[i].nome)
-  const tdAtividade = document.createTextNode(linhas[i].atividade)
-  const tdTipoAtividade = document.createTextNode(linhas[i].tipoAtividade)
-  const tdTempo = document.createTextNode(linhas[i].tempo)
-  const tdDeletar = document.createTextNode(linhas[i].deletar)
-  const tdEditar = document.createTextNode(linhas[i].editar)
-
-  tr.insertCell(0).appendChild(tdNome)
-  tr.insertCell(1).appendChild(tdAtividade)
-  tr.insertCell(2).appendChild(tdTipoAtividade)
-  tr.insertCell(3).appendChild(tdTempo)
-  let td4 = tr.insertCell(4)
-  let td5 = tr.insertCell(5)
-  td4.appendChild(tdDeletar)
-  td4.setAttribute('onclick', 'fnDeletarLinha(this)')
-  td5.appendChild(tdEditar)
-  td5.setAttribute('onclick', 'fnEditarLinha(this)')
-}
-
-finalizar.addEventListener('click', e => {
+const fnInsereLinha = () => {
   fnLinhas(
     inputer().nome,
     inputer().atividade,
     inputer().tipoAtividade,
     inputer().tempo,
-    inputer().deletar,
-    inputer().editar
+    inputer().editar,
+    inputer().deletar
   )
 
   fnAddLinha()
@@ -128,16 +80,125 @@ finalizar.addEventListener('click', e => {
   inputAtividade.removeAttribute('disabled', '')
   inputTipoAtividade.removeAttribute('disabled', '')
 
-  // inputNome.value = ''
-  // inputAtividade.value = ''
-  // inputTipoAtividade.value = ''
+  inputNome.value = ''
+  inputAtividade.value = ''
+  inputTipoAtividade.value = ''
+}
+
+finalizar.addEventListener('click', e => {
+  clearInterval(contadorSegundos)
+  segundos = 0
+  inicia.removeAttribute('disabled', '')
+  let linhasRepetidas = 1
+  if (inputNome.value == '' || inputAtividade.value == '') {
+    alert('Preencha os campos necessários')
+    return
+  } else {
+    if (!tr[1]) {
+      fnInsereLinha()
+    } else {
+      const filtroNome = inputNome.value.toUpperCase().trim()
+      const filtroAtividade = inputAtividade.value.toUpperCase().trim()
+      const filtroTipoAtividade = inputTipoAtividade.value.toUpperCase().trim()
+      for (let i = 1; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName('td')
+        if (
+          td[0].innerHTML.toUpperCase().trim() != filtroNome ||
+          td[1].innerHTML.toUpperCase().trim() != filtroAtividade ||
+          td[2].innerHTML.toUpperCase().trim() != filtroTipoAtividade
+        ) {
+          linhasRepetidas++
+        } else {
+          let tempoTd = td[3].innerHTML.split(':')
+          let tempoCronometro = cronometro.innerHTML.split(':')
+          td[3].innerHTML = fnVisor(
+            Number(tempoTd[0] * 360) +
+              Number(tempoTd[1] * 60) +
+              Number(tempoTd[2]) +
+              Number(tempoCronometro[0] * 360) +
+              Number(tempoCronometro[1] * 60) +
+              Number(tempoCronometro[2])
+          )
+          cronometro.innerHTML = '00:00:00'
+          inputNome.removeAttribute('disabled', '')
+          inputAtividade.removeAttribute('disabled', '')
+          inputTipoAtividade.removeAttribute('disabled', '')
+        }
+      }
+      if (linhasRepetidas > 1 && tr.length == linhasRepetidas) fnInsereLinha()
+    }
+  }
 })
 
-btnTeste.addEventListener('click', e => {
+const fnSomaTempo = () => {}
+
+let linhas = []
+
+const inputer = () => {
+  return {
+    nome: inputNome.value.toUpperCase().trim(),
+    atividade: inputAtividade.value.toUpperCase().trim(),
+    tipoAtividade: inputTipoAtividade.value.toUpperCase().trim(),
+    tempo: cronometro.innerText,
+    editar: '',
+    deletar: ''
+  }
+}
+
+class Linha {
+  constructor(nome, atividade, tipoAtividade, tempo, editar, deletar) {
+    this.nome = nome
+    this.atividade = atividade
+    this.tipoAtividade = tipoAtividade
+    this.tempo = tempo
+    this.editar = editar
+    this.deletar = deletar
+  }
+}
+
+const fnLinhas = (nome, atividade, tipoAtividade, tempo, editar, deletar) => {
+  linhas.push(new Linha(nome, atividade, tipoAtividade, tempo, editar, deletar))
+}
+
+function fnAddLinha() {
+  const tr = tbody.insertRow(-1)
+
+  secaoTabela.style.display = ''
+
+  let i = linhas.length - 1
+
+  const tdNome = document.createTextNode(linhas[i].nome)
+  const tdAtividade = document.createTextNode(linhas[i].atividade)
+  const tdTipoAtividade = document.createTextNode(linhas[i].tipoAtividade)
+  const tdTempo = document.createTextNode(linhas[i].tempo)
+  const tdEditar = document.createTextNode(linhas[i].editar)
+  const tdDeletar = document.createTextNode(linhas[i].deletar)
+
+  tr.insertCell(0).appendChild(tdNome)
+  tr.insertCell(1).appendChild(tdAtividade)
+  tr.insertCell(2).appendChild(tdTipoAtividade)
+  tr.insertCell(3).appendChild(tdTempo)
+  let td4 = tr.insertCell(4)
+  let td5 = tr.insertCell(5)
+  td4.appendChild(tdEditar)
+  td4.setAttribute('onclick', 'fnEditarLinha(this)')
+  td4.setAttribute('class', 'icone-editar')
+  td5.appendChild(tdDeletar)
+  td5.setAttribute('onclick', 'fnDeletarLinha(this)')
+  td5.setAttribute('class', 'icone-lixeira')
+}
+
+limparFiltro.addEventListener('click', e => {
   fnLimparFiltro()
 })
 
-btnTeste2.addEventListener('click', e => {
+procurar.addEventListener('keyup', e => {
+  if (e.keyCode === 13) {
+    fnProcurar()
+  }
+})
+
+iconeProcurar.addEventListener('click', e => {
   fnProcurar()
 })
 
@@ -145,11 +206,13 @@ const tr = tabela.getElementsByTagName('tr')
 
 const fnProcurar = () => {
   const filtro = procurar.value.toUpperCase().trim()
-
-  var td, i
+  var td, i, colN
 
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName('td')[1]
+    if (filtrar.value == 'usuario') colN = 0
+    if (filtrar.value == 'atividade') colN = 1
+    if (filtrar.value == 'tipoAtividade') colN = 2
+    td = tr[i].getElementsByTagName('td')[colN]
     if (td) {
       if (td.innerHTML.toUpperCase().trim() == filtro) {
         tr[i].style.display = ''
@@ -213,9 +276,67 @@ const fnOrdenaTabela = coluna => {
 
 const fnDeletarLinha = estaLinha => {
   tabela.deleteRow(estaLinha.parentNode.rowIndex)
+
+  if (!tuplas[1]) secaoTabela.style.display = 'none'
 }
 
 const fnEditarLinha = estaLinha => {
   const col = tuplas[estaLinha.parentNode.rowIndex].getElementsByTagName('td')
-  col[2].innerText = 'alterado'
+  const novoID = estaLinha.parentNode.rowIndex
+
+  let temp = col[0].innerText
+  let temp1 = col[1].innerText
+  let temp2 = col[2].innerText
+
+  col[0].innerHTML = `<input
+  id="editarUsuario${novoID}"
+  type="text"
+  name="usuarioEditado"
+  placeholder="${col[0].innerText}"
+/>`
+
+  col[1].innerHTML = `<input
+  id="editarAtividade${novoID}"
+  type="text"
+  name="AtividadeEditado"
+  placeholder="${col[1].innerText}"
+/>`
+
+  col[2].innerHTML = `<input
+  id="editarTipoAtividade${novoID}"
+  type="text"
+  name="tipoAtividadeEditado"
+  placeholder="${col[2].innerText}"
+/>`
+
+  document.addEventListener('keyup', e => {
+    if (e.keyCode === 13) {
+      if (document.getElementById('editarUsuario' + novoID).value == '') {
+        col[0].innerText = temp
+      } else {
+        col[0].innerText = document
+          .getElementById('editarUsuario' + novoID)
+          .value.toUpperCase()
+      }
+      if (document.getElementById('editarAtividade' + novoID).value == '') {
+        col[1].innerText = temp1
+      } else {
+        col[1].innerText = document
+          .getElementById('editarAtividade' + novoID)
+          .value.toUpperCase()
+      }
+      if (document.getElementById('editarTipoAtividade' + novoID).value == '') {
+        col[2].innerText = temp2
+      } else {
+        col[2].innerText = document
+          .getElementById('editarTipoAtividade' + novoID)
+          .value.toUpperCase()
+      }
+      temp = col[0].innerText
+      temp1 = col[1].innerText
+      temp2 = col[2].innerText
+    }
+  })
 }
+
+if (!tuplas[1]) secaoTabela.style.display = 'none'

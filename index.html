@@ -11,86 +11,105 @@
     <title>Gestao de Tarefas</title>
   </head>
   <body>
-    <header>
-      <img src="assets/img/logoSMN.png" alt="teste" />
-    </header>
+    <aside class="barra-lateral">
+      <nav>
+        <img src="./assets/img/icon-person.svg" />
+        <img src="./assets/img/icon-home.svg" />
+        <img src="./assets/img/icon-menu.svg" />
+        <img src="./assets/img/icon-search.svg" />
+      </nav>
+    </aside>
     <main>
-      <section id="visor">
-        <div id="inputs">
-          <div>
-            <label for="procurar"></label>
-            <input
-              id="procurar"
-              type="text"
-              name="procurar"
-              placeholder="Procurar"
-            />
-            <label for="filtrar"></label>
-            <input
-              id="filtrar"
-              type="text"
-              name="filtrar"
-              placeholder="Filtrar"
-            />
+      <header>
+        <img class="logo-smn" src="assets/img/logoSMN.png" alt="logo" />
+      </header>
+      <section class="corpo">
+        <section id="visor" class="secao secao-visor">
+          <div class="container-visor">
+            <div class="grid-visor">
+              <div>
+                <label for="procurar"></label>
+                <span id="iconeProcurar"></span>
+                <input
+                  id="procurar"
+                  type="text"
+                  name="procurar"
+                  placeholder="Procurar"
+                />
+              </div>
+              <div class="inputs-visor">
+                <div class="inputado">
+                  <label for="nome">USUARIO:</label>
+                  <input id="inputNome" type="text" name="nome" required />
+                </div>
+                <div class="inputado">
+                  <label for="atividade">ATIVIDADE:</label>
+                  <input
+                    id="inputAtividade"
+                    type="text"
+                    name="atividade"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="grid-visor">
+              <div class="container-filtro">
+                <select id="filtrar" name="filtrar">
+                  <option value="usuario">Usuario</option>
+                  <option value="atividade">Atividade</option>
+                  <option value="tipoAtividade">Tipo de Atividade</option>
+                </select>
+                <div id="limparFiltro">
+                  <label for="filtrar">limpar</label>
+                  <img src="./assets/img/vassoura.svg" alt="limpar filtro" />
+                </div>
+              </div>
+              <div class="inputado">
+                <label for="tipoAtividade">TIPO DE ATIVIDADE:</label>
+                <input
+                  id="inputTipoAtividade"
+                  type="text"
+                  name="tipoAtividade"
+                />
+              </div>
+            </div>
+            <div class="grid-visor" id="relogio">
+              <p id="contador">00:00:00</p>
+              <div class="container-botoes">
+                <div id="iniciar" class="botoes">
+                  <p>iniciar</p>
+                  <button id="inicia" class="botao"></button>
+                </div>
+                <div id="pausar" class="botoes">
+                  <p>pausar</p>
+                  <button class="botao"></button>
+                </div>
+                <div id="finalizar" class="botoes">
+                  <p>finalizar</p>
+                  <button class="botao"></button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="form">
-            <div class="inputers">
-              <label for="nome">USUARIO</label>
-              <input id="inputNome" type="text" name="nome" required />
-            </div>
-            <div class="inputers">
-              <label for="atividade">ATIVIDADE</label>
-              <input
-                id="inputAtividade"
-                type="text"
-                name="atividade"
-                required
-              />
-            </div>
-            <div class="inputers">
-              <label for="tipoAtividade">TIPO DE ATIVIDADE</label>
-              <input id="inputTipoAtividade" type="text" name="tipoAtividade" />
-            </div>
+        </section>
+        <section id="secaoTabela" class="secao secao-tabela">
+          <div id="divTabela">
+            <table id="tabela">
+              <thead>
+                <tr id="cabecalho">
+                  <th onclick="fnOrdenaTabela(0)">USUARIO</th>
+                  <th onclick="fnOrdenaTabela(1)">ATIVIDADE</th>
+                  <th onclick="fnOrdenaTabela(2)">TIPO DE ATIVIDADE</th>
+                  <th onclick="fnOrdenaTabela(3)">TEMPO</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tabelaCorpo"></tbody>
+            </table>
           </div>
-        </div>
-        <div id="relogio">
-          <p id="contador">00:00:00</p>
-          <div id="containerBotoes">
-            <div id="iniciar" class="botoes">
-              <p>iniciar</p>
-              <button id="inicia" class="botao"></button>
-            </div>
-            <div id="pausar" class="botoes">
-              <p>pausar</p>
-              <button class="botao"></button>
-            </div>
-            <div id="finalizar" class="botoes">
-              <p>finalizar</p>
-              <button class="botao"></button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="sectionTabela">
-        <div id="divTabela">
-          <table id="tabela">
-            <thead>
-              <tr id="cabecalho">
-                <th onclick="fnOrdenaTabela(0)">USUARIO</th>
-                <th onclick="fnOrdenaTabela(1)">ATIVIDADE</th>
-                <th onclick="fnOrdenaTabela(2)">TIPO DE ATIVIDADE</th>
-                <th onclick="fnOrdenaTabela(3)">TEMPO</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="tabelaCorpo"></tbody>
-          </table>
-        </div>
-      </section>
-      <section>
-        <button id="botaoTeste">teste1</button>
-        <button id="botaoTeste2">teste2</button>
+        </section>
       </section>
     </main>
   </body>
