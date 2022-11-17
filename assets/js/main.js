@@ -29,11 +29,11 @@ const fnContador = () => {
   contadorSegundos = setInterval(() => {
     segundos++
     cronometro.innerHTML = fnVisor(segundos)
-  }, 10)
+  }, 1000)
 }
 
-iniciar.addEventListener('click', e => {
-  if (inputNome.value == '' && inputAtividade.value == '') {
+const fnInicia = () => {
+  if (inputNome.value == '' || inputAtividade.value == '') {
     alert('Preencha os campos necessários')
   } else {
     clearInterval(contadorSegundos)
@@ -41,8 +41,23 @@ iniciar.addEventListener('click', e => {
     inputNome.setAttribute('disabled', '')
     inputAtividade.setAttribute('disabled', '')
     inputTipoAtividade.setAttribute('disabled', '')
-
     inicia.setAttribute('disabled', '')
+  }
+}
+
+iniciar.addEventListener('click', e => {
+  fnInicia()
+})
+
+document.addEventListener('keyup', e => {
+  if (e.keyCode === 13) {
+    if (
+      e.target.id === inputNome.id ||
+      e.target.id === inputAtividade.id ||
+      e.target.id === inputTipoAtividade.id
+    ) {
+      fnInicia()
+    }
   }
 })
 
@@ -85,7 +100,7 @@ const fnInsereLinha = () => {
   inputTipoAtividade.value = ''
 }
 
-finalizar.addEventListener('click', e => {
+const fnFinaliza = () => {
   clearInterval(contadorSegundos)
   segundos = 0
   inicia.removeAttribute('disabled', '')
@@ -128,9 +143,11 @@ finalizar.addEventListener('click', e => {
       if (linhasRepetidas > 1 && tr.length == linhasRepetidas) fnInsereLinha()
     }
   }
-})
+}
 
-const fnSomaTempo = () => {}
+finalizar.addEventListener('click', e => {
+  fnFinaliza()
+})
 
 let linhas = []
 

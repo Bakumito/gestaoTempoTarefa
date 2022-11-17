@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto:wght@300;400;500;700&display=swap');
-html {
-  font-size: calc(62.5% * var(--full-HD));
-  width: 144rem;  
-  background-color: var(--cinza-light);
+
+
+@media screen and (max-width: 1980px) {
+  html {
+    font-size: calc(62.5% * var(--full-HD));
+    width: 144rem;  
+    background-color: var(--cinza-light);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  html {
+    font-size: 62.5%;
+    width: 144rem;  
+    background-color: var(--cinza-light);
+  }
 }
 
 :root {
