@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --branco: #FFFFFF;
+  --cinza-light: #EEEEEE;
+  --cinza-fundo: #D9D9D9;
+  --fundo-botao: #6B7D87;
+}
+
+html {
+  font-size: 62.5%;
+  background-color: var(--cinza-light);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+header, .container-input-visor {
+  display: flex;
+}
+
+header {
+  height: 6.6rem;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cinza-fundo);
+}
+
+header .logo-smn {
+  width: 4.7rem;
+  height: 4.7rem;
+}
+
+.secao-visor {
+  padding: 0 1.2rem;
+}
+
+.container-input-visor {
+  justify-content: space-between;
+}
+
+.input-visor {
+  max-width: 11.5rem;
+  text-align: center;
+}
+
+.input-visor label {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.input-visor input {
+  max-width: 11rem;
+  border-radius: 0.5rem;
+  background-color: var(--cinza-fundo);
+}
+
+.container-relogio-visor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#contador {
+  margin-top: 3.2rem;
+  font-family: 'Irish Grover';
+  font-size: 4.5rem;
+}
+
+.container-botoes {
+  display: flex;
+}
+
+.botoes-visor {
+  text-align: center;
+  color: var(--cinza-light);
+}
+
+.botao {
+  border: #000 solid 0.15rem;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 1rem;
+}
+
+#iniciar button {
+  background: var(--fundo-botao) url('../img/play.svg') no-repeat center;
+}
+
+#pausar button {
+  background: var(--fundo-botao) url('../img/pause.svg') no-repeat center;
+}
+
+#finalizar button {
+  background: var(--fundo-botao) url('../img/stop.svg') no-repeat center;
+}
+
+.pausado button{
+  background-image: url('../img/play.svg') !important;
+}
+
+.container-filtro-visor {
+  margin-top: 2.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-filtro-visor input, .container-filtro-visor select {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--cinza-fundo);
+}
+
+.input-filtrar-visor {
+  display: flex;
+}
+
+#procurar {
+  width: 20rem;
+}
+
+#filtrar {
+  width: 10rem;
+}
+
+.input-filtrar-visor label {
+  margin-left: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background: url('../img/vassoura.svg') no-repeat;
+  background-size: 1.5rem;
+  background-position: center;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.6rem;
+  padding: 0 1.2rem;
+}
+
+th, td {
+  height: 4.8rem;
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+
+thead th {
+  width: 20%;
+}
+
+thead th:nth-child(4){
+  width: 20%;
+}
+
+thead th:nth-child(5), thead th:nth-child(6) {
+  width: 5%;
+}
+
+td:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+td:last-child {
+  border-bottom-right-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+td {
+  text-align: center;
+}
+
+tbody tr {
+  background-color: var(--branco);
+  margin-bottom: 2.6rem;
+}
+
+.icone-editar {
+  background: url('../img/edit.svg') no-repeat center;
+  background-size: 1.6rem;
+}
+
+.icone-lixeira {
+  background: url('../img/trash.svg') no-repeat center;
+  background-size: 1.5rem;
+}
+
+.icone-editar:hover {
+  background-image: url('../img/edit.svg');
+}
+
+.icone-lixeira:hover {
+  background-image: url('../img/trash.svg');
+}
+
+aside {
+  display: none;
+}

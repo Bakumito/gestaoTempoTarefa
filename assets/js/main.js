@@ -3,7 +3,7 @@ const iniciar = document.getElementById('iniciar')
 const inicia = document.getElementById('inicia')
 const pausar = document.getElementById('pausar')
 const finalizar = document.getElementById('finalizar')
-const inputNome = document.getElementById('inputNome')
+const inputUsuario = document.getElementById('inputUsuario')
 const inputAtividade = document.getElementById('inputAtividade')
 const inputTipoAtividade = document.getElementById('inputTipoAtividade')
 const tabela = document.getElementById('tabela')
@@ -33,12 +33,12 @@ const fnContador = () => {
 }
 
 const fnInicia = () => {
-  if (inputNome.value == '' || inputAtividade.value == '') {
+  if (inputUsuario.value == '' || inputAtividade.value == '') {
     alert('Preencha os campos necessários')
   } else {
     clearInterval(contadorSegundos)
     fnContador()
-    inputNome.setAttribute('disabled', '')
+    inputUsuario.setAttribute('disabled', '')
     inputAtividade.setAttribute('disabled', '')
     inputTipoAtividade.setAttribute('disabled', '')
     inicia.setAttribute('disabled', '')
@@ -52,7 +52,7 @@ iniciar.addEventListener('click', e => {
 document.addEventListener('keyup', e => {
   if (e.keyCode === 13) {
     if (
-      e.target.id === inputNome.id ||
+      e.target.id === inputUsuario.id ||
       e.target.id === inputAtividade.id ||
       e.target.id === inputTipoAtividade.id
     ) {
@@ -62,7 +62,7 @@ document.addEventListener('keyup', e => {
 })
 
 pausar.addEventListener('click', e => {
-  if (inputNome.value == '' && inputAtividade.value == '') {
+  if (inputUsuario.value == '' && inputAtividade.value == '') {
     alert('Preencha os campos necessários')
   } else {
     if (pausar.classList.contains('pausado')) {
@@ -91,11 +91,11 @@ const fnInsereLinha = () => {
   fnAddLinha()
   cronometro.innerHTML = '00:00:00'
 
-  inputNome.removeAttribute('disabled', '')
+  inputUsuario.removeAttribute('disabled', '')
   inputAtividade.removeAttribute('disabled', '')
   inputTipoAtividade.removeAttribute('disabled', '')
 
-  inputNome.value = ''
+  inputUsuario.value = ''
   inputAtividade.value = ''
   inputTipoAtividade.value = ''
 }
@@ -105,14 +105,14 @@ const fnFinaliza = () => {
   segundos = 0
   inicia.removeAttribute('disabled', '')
   let linhasRepetidas = 1
-  if (inputNome.value == '' || inputAtividade.value == '') {
+  if (inputUsuario.value == '' || inputAtividade.value == '') {
     alert('Preencha os campos necessários')
     return
   } else {
     if (!tr[1]) {
       fnInsereLinha()
     } else {
-      const filtroNome = inputNome.value.toUpperCase().trim()
+      const filtroNome = inputUsuario.value.toUpperCase().trim()
       const filtroAtividade = inputAtividade.value.toUpperCase().trim()
       const filtroTipoAtividade = inputTipoAtividade.value.toUpperCase().trim()
       for (let i = 1; i < tr.length; i++) {
@@ -135,7 +135,7 @@ const fnFinaliza = () => {
               Number(tempoCronometro[2])
           )
           cronometro.innerHTML = '00:00:00'
-          inputNome.removeAttribute('disabled', '')
+          inputUsuario.removeAttribute('disabled', '')
           inputAtividade.removeAttribute('disabled', '')
           inputTipoAtividade.removeAttribute('disabled', '')
         }
@@ -153,7 +153,7 @@ let linhas = []
 
 const inputer = () => {
   return {
-    nome: inputNome.value.toUpperCase().trim(),
+    nome: inputUsuario.value.toUpperCase().trim(),
     atividade: inputAtividade.value.toUpperCase().trim(),
     tipoAtividade: inputTipoAtividade.value.toUpperCase().trim(),
     tempo: cronometro.innerText,
