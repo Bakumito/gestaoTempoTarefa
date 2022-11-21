@@ -20,7 +20,7 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-header, .container-input-visor {
+.container-input-visor, .container-relogio-visor, .container-botoes, .container-filtro-visor, .input-filtrar-visor, header {
   display: flex;
 }
 
@@ -61,7 +61,6 @@ header .logo-smn {
 }
 
 .container-relogio-visor {
-  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -70,10 +69,6 @@ header .logo-smn {
   margin-top: 3.2rem;
   font-family: 'Irish Grover';
   font-size: 4.5rem;
-}
-
-.container-botoes {
-  display: flex;
 }
 
 .botoes-visor {
@@ -107,7 +102,6 @@ header .logo-smn {
 
 .container-filtro-visor {
   margin-top: 2.2rem;
-  display: flex;
   justify-content: space-between;
 }
 
@@ -115,10 +109,6 @@ header .logo-smn {
   height: 2.5rem;
   border-radius: 0.5rem;
   background-color: var(--cinza-fundo);
-}
-
-.input-filtrar-visor {
-  display: flex;
 }
 
 #procurar {
