@@ -5,7 +5,6 @@
   --cinza-back: #CBCBCB;
   --cinza-light: #D9D9D9;
   --full-HD: calc(133.333333 / 100);
-  --iphone: calc(26.04167 / 100)
 }
 
 * {
@@ -16,34 +15,12 @@
   font-family: 'Roboto', sans-serif;
 }
 
-@media screen and (max-width: 375px){
-  html {
-    font-size: 62.5%;
-    background-color: var(--cinza-light);    
-    width: 144rem;  
-  }
-  aside {
-    display: none;
-  }
+html {
+  font-size: calc(62.5% * var(--full-HD)); 
+  background-color: var(--cinza-light);
 }
 
-@media screen and (min-width: 1441px) and (max-width: 1980px) {
-  html {
-    font-size: calc(62.5% * var(--full-HD));
-    width: 144rem;  
-    background-color: var(--cinza-light);
-  }
-}
-
-@media screen and (min-width: 376px) and (max-width: 1440px) {
-  html {
-    font-size: 62.5%;
-    width: 144rem;  
-    background-color: var(--cinza-light);
-  }
-}
-
-body, header, .container-visor, .container-botoes, .container-filtro, .barra-lateral nav {
+body, header, .container-input-visor, .container-botoes, .container-filtro, .barra-lateral nav {
   display: flex;
 }
 
@@ -66,7 +43,7 @@ body {
   margin: 5.4rem 0;
 }
 
-.barra-lateral nav img {
+.barra-lateral nav a {
   margin-bottom: 5.4rem;
 }
 
@@ -96,7 +73,7 @@ header {
   border-bottom: 1.5rem solid var(--cinza-back);
 }
 
-.container-visor {
+.container-input-visor {
   justify-content: space-between;
 }
 

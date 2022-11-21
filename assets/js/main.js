@@ -10,7 +10,7 @@ const tabela = document.getElementById('tabela')
 const tbody = document.getElementById('tabelaCorpo')
 const procurar = document.getElementById('procurar')
 const filtrar = document.getElementById('filtrar')
-const secaoTabela = document.getElementById('secaoTabela')
+const secaoTabela = document.querySelector('.secao-tabela')
 const limparFiltro = document.getElementById('limparFiltro')
 const iconeProcurar = document.getElementById('iconeProcurar')
 
@@ -34,7 +34,7 @@ const fnContador = () => {
 
 const fnInicia = () => {
   if (inputUsuario.value == '' || inputAtividade.value == '') {
-    alert('Preencha os campos necessários')
+    alert('é necessário preencher o usuário e a atividade.')
   } else {
     clearInterval(contadorSegundos)
     fnContador()
@@ -63,7 +63,7 @@ document.addEventListener('keyup', e => {
 
 pausar.addEventListener('click', e => {
   if (inputUsuario.value == '' && inputAtividade.value == '') {
-    alert('Preencha os campos necessários')
+    alert('é necessário preencher o usuário e a atividade.')
   } else {
     if (pausar.classList.contains('pausado')) {
       pausar.classList.remove('pausado')
@@ -106,7 +106,7 @@ const fnFinaliza = () => {
   inicia.removeAttribute('disabled', '')
   let linhasRepetidas = 1
   if (inputUsuario.value == '' || inputAtividade.value == '') {
-    alert('Preencha os campos necessários')
+    alert('é necessário preencher o usuário e a atividade.')
     return
   } else {
     if (!tr[1]) {
